@@ -132,12 +132,47 @@ namespace EcomInspection
             string paramType = cbParamType.Text;
             string paramValue = ((UpDownBase)nnParamValue).Text;
 
-            dvParam.Rows.Add();
-            dvParam.Rows[dvParam.RowCount - 1].Cells[0].Value = paramName;
-            dvParam.Rows[dvParam.RowCount - 1].Cells[1].Value = paramType;
-            dvParam.Rows[dvParam.RowCount - 1].Cells[2].Value = paramValue;
+            bool found = false;
+            foreach(DataGridViewRow row in dvParam.Rows)
+            {
+                if(paramName == row.Cells[0].Value.ToString())
+                {
+                    row.Cells[0].Value = paramName;
+                    row.Cells[1].Value = paramType;
+                    row.Cells[2].Value = paramValue;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                dvParam.Rows.Add();
+                dvParam.Rows[dvParam.RowCount - 1].Cells[0].Value = paramName;
+                dvParam.Rows[dvParam.RowCount - 1].Cells[1].Value = paramType;
+                dvParam.Rows[dvParam.RowCount - 1].Cells[2].Value = paramValue;
+            }
 
             tbxParamName.Text = "";
+        }
+
+        private void dvParam_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string paramName = dvParam.Rows[e.RowIndex].Cells[0].Value.ToString();
+            string paramType = dvParam.Rows[e.RowIndex].Cells[1].Value.ToString();
+            string value = dvParam.Rows[e.RowIndex].Cells[2].Value.ToString();
+
+            tbxParamName.Text = paramName;
+            if(paramType == "INT")
+            {
+                cbParamType.SelectedIndex = 0;
+                nnParamValue.Value = int.Parse(value);
+            }
+            else
+            {
+                cbParamType.SelectedIndex = 1;
+                nnParamValue.Value = decimal.Parse(value);
+            }
         }
     }
 }

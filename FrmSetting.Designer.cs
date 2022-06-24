@@ -543,6 +543,7 @@
             this.dvParam.RowHeadersWidth = 20;
             this.dvParam.Size = new System.Drawing.Size(430, 337);
             this.dvParam.TabIndex = 0;
+            this.dvParam.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvParam_CellDoubleClick);
             // 
             // TagCol
             // 
