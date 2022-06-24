@@ -85,6 +85,72 @@ namespace EcomInspection
         }
 
         #region User Mothods
+        public void LoadParams()
+        {
+            bool result = LoadAppParams();
+            if(IS130 == null||!result)
+            {
+                return;
+            }
+            LoadToolParams();
+            if (IS130 != null) ScanISTimer.Start();
+        }
+        public bool LoadAppParams()
+        {
+            Lib.Database.AppParams _params = Lib.Database.LoadParams();
+            if (_params != null)
+            {
+                try
+                {
+                    IS130 = new Insight(_params.Ftp_Address, _params.Ftp_User, _params.Ftp_Password, _params.Ftp_Folder, _params.Ns_Address, _params.Ns_User, _params.Ns_Password);
+                    IS130.NS.ConnectInsight();
+                    IS130.Triggered += IS130_Triggered;
+                    IS130.Connected += IS130_Connected;
+                    IS130.Disconnected += IS130_Disconnected;
+                    IS130.Onlined += IS130_Onlined;
+                    IS130.Offlined += IS130_Offlined;
+                    ScanISTimer = new System.Windows.Forms.Timer();
+                    ScanISTimer.Interval = 200;
+                    ScanISTimer.Tick += ScanISTimer_Tick;
+                    btnTurnOnline.Enabled = true;
+                    btnTryConnect.Visible = false;
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    btnTryConnect.Visible = true;
+                    IS130 = null;
+                    return false;
+                }
+            }
+            return false;
+        }
+        public void LoadToolParams()
+        {
+            List<Lib.Database.ToolParams> toolParams = Lib.Database.LoadToolParams();
+            if(toolParams.Count == 0) return;
+            try
+            {
+                foreach(Lib.Database.ToolParams toolParam in toolParams)
+                {
+                    if(toolParam.ParamType == "INT")
+                    {
+                        IS130.NS.SetInt(toolParam.ParamName,int.Parse(toolParam.ParamValue));
+                    }
+                    else
+                    {
+                        IS130.NS.SetFloat(toolParam.ParamName, double.Parse(toolParam.ParamValue));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                btnTryConnect.Visible = true;
+                IS130 = null;
+            }
+        }
         public void ShowImage()
         {
             try
@@ -206,7 +272,7 @@ namespace EcomInspection
                     OKCount++;
                 }
                 NGCount = TotalCount - OKCount;
-                Thread.Sleep(150);
+                Thread.Sleep(200);
                 this.ShowImage();
                 sw.Stop();
                 lbTaktTime.Text = $"Process Time: {sw.ElapsedMilliseconds} ms";
@@ -286,32 +352,7 @@ namespace EcomInspection
             Logout();
             btnTryConnect.Visible = false;
             btnTurnOnline.Enabled = false;
-            Lib.Database.AppParams _params = Lib.Database.LoadParams();
-            if(_params != null)
-            {
-                try
-                {
-                    IS130 = new Insight(_params.Ftp_Address, _params.Ftp_User, _params.Ftp_Password, _params.Ftp_Folder, _params.Ns_Address, _params.Ns_User, _params.Ns_Password);
-                    IS130.NS.ConnectInsight();
-                    IS130.Triggered += IS130_Triggered;
-                    IS130.Connected += IS130_Connected;
-                    IS130.Disconnected += IS130_Disconnected;
-                    IS130.Onlined += IS130_Onlined;
-                    IS130.Offlined += IS130_Offlined;
-                    ScanISTimer = new System.Windows.Forms.Timer();
-                    ScanISTimer.Interval = 100;
-                    ScanISTimer.Start();
-                    ScanISTimer.Tick += ScanISTimer_Tick;
-                    btnTurnOnline.Enabled = true;
-                    btnTryConnect.Visible = false;
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    btnTryConnect.Visible = true;
-                    IS130 = null;
-                }
-            }
+            LoadParams();
         }
         private void btnTurnOnline_Click(object sender, EventArgs e)
         {
@@ -352,7 +393,7 @@ namespace EcomInspection
         {
             if(IS130 != null)
             {
-                if (IS130.NSStatus == Insight.Status.Online)
+                if (IS130.ISOnlineStatus == Insight.Status.Online)
                 {
                     MessageBox.Show("Turn Offline Before Setting!");
                     return;
@@ -363,58 +404,14 @@ namespace EcomInspection
             if (MustUpdate)
             {
                 btnTurnOnline.Enabled = false;
-                Lib.Database.AppParams _params = Lib.Database.LoadParams();
-                try
-                {
-                    IS130 = new Insight(_params.Ftp_Address, _params.Ftp_User, _params.Ftp_Password, _params.Ftp_Folder, _params.Ns_Address, _params.Ns_User, _params.Ns_Password);
-                    IS130.NS.ConnectInsight();
-                    IS130.Triggered += IS130_Triggered;
-                    IS130.Connected += IS130_Connected;
-                    IS130.Disconnected += IS130_Disconnected;
-                    IS130.Onlined += IS130_Onlined;
-                    IS130.Offlined += IS130_Offlined;
-                    ScanISTimer = new System.Windows.Forms.Timer();
-                    ScanISTimer.Interval = 200;
-                    ScanISTimer.Start();
-                    ScanISTimer.Tick += ScanISTimer_Tick;
-                    btnTurnOnline.Enabled = true;
-                    btnTryConnect.Visible = false;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    btnTryConnect.Visible = true;
-                    IS130 = null;
-                }
+                LoadParams();
                 MustUpdate = false;
             }
         }
         private void btnTryConnect_Click(object sender, EventArgs e)
         {
             btnTurnOnline.Enabled = false;
-            Lib.Database.AppParams _params = Lib.Database.LoadParams();
-            try
-            {
-                IS130 = new Insight(_params.Ftp_Address, _params.Ftp_User, _params.Ftp_Password, _params.Ftp_Folder, _params.Ns_Address, _params.Ns_User, _params.Ns_Password);
-                IS130.NS.ConnectInsight();
-                IS130.Triggered += IS130_Triggered;
-                IS130.Connected += IS130_Connected;
-                IS130.Disconnected += IS130_Disconnected;
-                IS130.Onlined += IS130_Onlined;
-                IS130.Offlined += IS130_Offlined;
-                ScanISTimer = new System.Windows.Forms.Timer();
-                ScanISTimer.Interval = 200;
-                ScanISTimer.Start();
-                ScanISTimer.Tick += ScanISTimer_Tick;
-                btnTurnOnline.Enabled = true;
-                btnTryConnect.Visible = false;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                btnTryConnect.Visible = true;
-                IS130 = null;
-            }
+            LoadParams();
         }
         private void btnLoggin_Click(object sender, EventArgs e)
         {
@@ -446,15 +443,9 @@ namespace EcomInspection
             }
             
         }
-
         private void btnClearCount_Click(object sender, EventArgs e)
         {
             TotalCount = 0;
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
         #endregion
 

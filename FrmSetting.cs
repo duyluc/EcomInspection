@@ -17,7 +17,6 @@ namespace EcomInspection
         public FrmSetting()
         {
             InitializeComponent();
-            LoadDatabase();
         }
         private void btnQuit_Click(object sender, EventArgs e)
         {
@@ -28,19 +27,31 @@ namespace EcomInspection
         }
         private void FrmSetting_Load(object sender, EventArgs e)
         {
-            //Load DataBase
+            cbParamType.SelectedIndex = 0;
+            LoadDatabase();
         }
         public void LoadDatabase()
         {
             Lib.Database.AppParams _params = Lib.Database.LoadParams();
-            if (_params == null) return;
-            tbxFtp_Address.Text = _params.Ftp_Address;
-            tbxFtp_User.Text = _params.Ftp_User;
-            tbxFtp_Password.Text = _params.Ftp_Password;
-            tbxFtp_Folder.Text = _params.Ftp_Folder;
-            tbxNs_Address.Text = _params.Ns_Address;
-            tbxNs_Password.Text = _params.Ns_Password;
-            tbxNs_User.Text = _params.Ns_User;
+            if (_params != null)
+            {
+                tbxFtp_Address.Text = _params.Ftp_Address;
+                tbxFtp_User.Text = _params.Ftp_User;
+                tbxFtp_Password.Text = _params.Ftp_Password;
+                tbxFtp_Folder.Text = _params.Ftp_Folder;
+                tbxNs_Address.Text = _params.Ns_Address;
+                tbxNs_Password.Text = _params.Ns_Password;
+                tbxNs_User.Text = _params.Ns_User;
+            }
+
+            List<Lib.Database.ToolParams> toolParams = Lib.Database.LoadToolParams();
+            foreach(Lib.Database.ToolParams toolParam in toolParams)
+            {
+                dvParam.Rows.Add();
+                dvParam.Rows[dvParam.RowCount - 1].Cells[0].Value = toolParam.ParamName;
+                dvParam.Rows[dvParam.RowCount - 1].Cells[1].Value = toolParam.ParamType;
+                dvParam.Rows[dvParam.RowCount - 1].Cells[2].Value = toolParam.ParamValue;
+            }
         }
         public void SaveDatabase()
         {
@@ -62,8 +73,22 @@ namespace EcomInspection
                     Ns_User = tbxNs_User.Text,
                     Ns_Password = tbxNs_Password.Text,
                 };
-
                 Lib.Database.SaveAppParams(_param);
+
+                //Toolparam
+                List<Lib.Database.ToolParams> toolParams = new List<Lib.Database.ToolParams>();
+                foreach(DataGridViewRow row in dvParam.Rows)
+                {
+                    Lib.Database.ToolParams param = new Lib.Database.ToolParams
+                    {
+                        ParamName = row.Cells[0].Value.ToString(),
+                        ParamType = row.Cells[1].Value.ToString(),
+                        ParamValue = row.Cells[2].Value.ToString(),
+                    };
+                    toolParams.Add(param);
+                }
+                Lib.Database.SaveToolParams(toolParams);
+
                 MessageBox.Show("Saved!");
                 FrmMain.MustUpdate = true;
                 this.Close();
@@ -87,6 +112,32 @@ namespace EcomInspection
             {
                 tbxFtp_Folder.Text = fBlg.SelectedPath;
             }
+        }
+        private void cbParamType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbParamType.SelectedIndex == 0)
+                nnParamValue.DecimalPlaces = 0;
+            if (cbParamType.SelectedIndex == 1)
+                nnParamValue.DecimalPlaces = 3;
+        }
+
+        private void btnAddParam_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbxParamName.Text))
+            {
+                MessageBox.Show("Param Name is invalid");
+                return;
+            }
+            string paramName = tbxParamName.Text;
+            string paramType = cbParamType.Text;
+            string paramValue = ((UpDownBase)nnParamValue).Text;
+
+            dvParam.Rows.Add();
+            dvParam.Rows[dvParam.RowCount - 1].Cells[0].Value = paramName;
+            dvParam.Rows[dvParam.RowCount - 1].Cells[1].Value = paramType;
+            dvParam.Rows[dvParam.RowCount - 1].Cells[2].Value = paramValue;
+
+            tbxParamName.Text = "";
         }
     }
 }

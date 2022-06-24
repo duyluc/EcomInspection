@@ -251,6 +251,31 @@
         /f3sgUpJSg/tCfv4GYIdE8nLyv4B9OyI7y9+G5MAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="btnAddParam.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAndJREFUeF7t
+        mttOGlEUhukbtvoIGlvbSCXSoihUxGprRTkNcpoBBGFmeT71pg/R8ibVxOvVvZN16QVrk6ZdO/tLvstv
+        wr+umGRiDofD4XA4HH+TMLybGUX3D0qc0N/D6PtLyuVzEt6Hw/AOOeqGcvkMRregRKZAuXz0mP7wBjla
+        dYDe4BZ6gxvkadUBrqHbv0aOuqFcPp3jK1AiU3sOEPSuwO9eIkfdUC6fducK2p1L5GnRAVrBBTSDC+So
+        G8rl0wjOoeGfI0vVUC6feuscjlpnyFE3lMunpsbUmmfI0qYDeI1TqDZOkaNuKJdPpQ6gRKb2HKBcAyjV
+        IuSoG8plg4gvih6Mi16ETH/qlh7z7yhUotmDSnR34IU/jKyGYyUaOn72mZOof3N19IpmmFMoDx8L5REK
+        9YFmmLNfGqJkaYY5e8UhSpZmmPP18AQlSzPM2S0MULI0w5yd/T5KlmaYs/2tj5KlGebk945RsjTDnNyX
+        HkqWZpizudtFydIMc7I7XZQszTAn87nzqEShTv9XeH3bn93IB1EmH4CJG3l/rHo00x8/98xJVH2kfvv0
+        L0NTo15p02pIestHjutb/i/d0lNkk84FsJbzkaNuKJdParMNqU9tZKkayuWTyrbgY7aFHHVDuXySmRYk
+        M03kadkBVjaayNGqAyTSDVAiU5sOUIfltTpy1A3l8omv1iG+eoQ8bTpAqg5LqSPkqBvK5fPuQw2UyNSi
+        AyQ9eJv0kKNuKJfPohqzuFJFljYd4E3Cg9eJKnLUDeXyWUhUYGG5gixVQ7l85t+XQyUytedj6fml8sxc
+        vPSkxAl9mls+tOdzeYfD4XA4HP8hsdgf9KD2XouyCI4AAAAASUVORK5CYII=
+</value>
+  </data>
+  <metadata name="TagCol.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="TypeCol.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Value.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="btnAccept.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAABelJREFUeF7t

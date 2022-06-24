@@ -26,6 +26,44 @@ namespace EcomInspection.Lib
                 DatabaseFolder = value;
             }
         }
+        #region Tool Params
+        public static string ParamsPath = Path.Combine(DatabaseFolder, "Params.db");
+        public class ToolParams
+        {
+            public int Id { get; set; }
+            public string ParamName { get; set; }
+            public string ParamType { get; set; }
+            public string ParamValue { get; set; }
+        }
+        public static void SaveToolParams(List<ToolParams> toolparams)
+        {
+            using (LiteDatabase db = new LiteDatabase(ParamsPath))
+            {
+                var col = db.GetCollection<ToolParams>();
+                col.DeleteAll();
+                foreach(ToolParams toolparam in toolparams)
+                {
+                    col.Insert(toolparam);
+                }
+            }
+        }
+        public static List<ToolParams> LoadToolParams()
+        {
+            List<ToolParams> toolparams = new List<ToolParams>();
+            try
+            {
+                using (LiteDatabase db = new LiteDatabase(ParamsPath))
+                {
+                    var col = db.GetCollection<ToolParams>();
+                    toolparams = col.FindAll().ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return toolparams;
+        }
+        #endregion
         #region COUNTER
         public static string CounterPath = Path.Combine(DatabaseFolder, "Counter.db");
         public class Counter

@@ -29,12 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSetting));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnQuit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.tbxNs_Password = new System.Windows.Forms.TextBox();
@@ -54,14 +57,31 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnSearch = new System.Windows.Forms.Button();
             this.tbxFtp_Folder = new System.Windows.Forms.TextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnAddParam = new System.Windows.Forms.Button();
+            this.nnParamValue = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbParamType = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbxParamName = new System.Windows.Forms.TextBox();
+            this.lbTag = new System.Windows.Forms.Label();
+            this.dvParam = new System.Windows.Forms.DataGridView();
+            this.TagCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAccept = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nnParamValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dvParam)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,7 +98,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.009009F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.99099F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 553);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(456, 582);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
@@ -89,7 +109,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(433, 43);
+            this.panel1.Size = new System.Drawing.Size(450, 46);
             this.panel1.TabIndex = 0;
             // 
             // btnQuit
@@ -101,7 +121,7 @@
             this.btnQuit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.btnQuit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnQuit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnQuit.Location = new System.Drawing.Point(382, 3);
+            this.btnQuit.Location = new System.Drawing.Point(399, 2);
             this.btnQuit.Name = "btnQuit";
             this.btnQuit.Size = new System.Drawing.Size(48, 40);
             this.btnQuit.TabIndex = 3;
@@ -113,7 +133,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label1.Location = new System.Drawing.Point(167, 2);
+            this.label1.Location = new System.Drawing.Point(173, 2);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(144, 39);
             this.label1.TabIndex = 1;
@@ -131,13 +151,36 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.tableLayoutPanel2);
+            this.panel3.Controls.Add(this.tabControl1);
             this.panel3.Controls.Add(this.btnAccept);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 52);
+            this.panel3.Location = new System.Drawing.Point(3, 55);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(433, 498);
+            this.panel3.Size = new System.Drawing.Size(450, 524);
             this.panel3.TabIndex = 1;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(3, 3);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(444, 465);
+            this.tabControl1.TabIndex = 9;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.tabPage1.Controls.Add(this.tableLayoutPanel2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(436, 439);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Connection";
             // 
             // tableLayoutPanel2
             // 
@@ -160,7 +203,7 @@
             this.tableLayoutPanel2.Controls.Add(this.tbxFtp_Address, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label3, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 1, 4);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 16);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(6, 16);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 9;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
@@ -172,14 +215,14 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.11111F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(430, 417);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(427, 417);
             this.tableLayoutPanel2.TabIndex = 5;
             // 
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Maroon;
-            this.label8.Location = new System.Drawing.Point(116, 230);
+            this.label8.Location = new System.Drawing.Point(115, 230);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(291, 46);
             this.label8.TabIndex = 27;
@@ -190,7 +233,7 @@
             // 
             this.tbxNs_Password.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbxNs_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxNs_Password.Location = new System.Drawing.Point(138, 381);
+            this.tbxNs_Password.Location = new System.Drawing.Point(137, 381);
             this.tbxNs_Password.Margin = new System.Windows.Forms.Padding(25, 3, 3, 3);
             this.tbxNs_Password.Name = "tbxNs_Password";
             this.tbxNs_Password.Size = new System.Drawing.Size(258, 22);
@@ -201,7 +244,7 @@
             // 
             this.tbxNs_User.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbxNs_User.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxNs_User.Location = new System.Drawing.Point(138, 334);
+            this.tbxNs_User.Location = new System.Drawing.Point(137, 334);
             this.tbxNs_User.Margin = new System.Windows.Forms.Padding(25, 3, 3, 3);
             this.tbxNs_User.Name = "tbxNs_User";
             this.tbxNs_User.Size = new System.Drawing.Size(258, 22);
@@ -212,7 +255,7 @@
             // 
             this.tbxNs_Address.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbxNs_Address.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxNs_Address.Location = new System.Drawing.Point(138, 288);
+            this.tbxNs_Address.Location = new System.Drawing.Point(137, 288);
             this.tbxNs_Address.Margin = new System.Windows.Forms.Padding(25, 3, 3, 3);
             this.tbxNs_Address.Name = "tbxNs_Address";
             this.tbxNs_Address.Size = new System.Drawing.Size(258, 22);
@@ -223,7 +266,7 @@
             // 
             this.tbxFtp_Password.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbxFtp_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxFtp_Password.Location = new System.Drawing.Point(138, 150);
+            this.tbxFtp_Password.Location = new System.Drawing.Point(137, 150);
             this.tbxFtp_Password.Margin = new System.Windows.Forms.Padding(25, 3, 3, 3);
             this.tbxFtp_Password.Name = "tbxFtp_Password";
             this.tbxFtp_Password.Size = new System.Drawing.Size(258, 22);
@@ -234,7 +277,7 @@
             // 
             this.tbxFtp_User.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbxFtp_User.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxFtp_User.Location = new System.Drawing.Point(138, 104);
+            this.tbxFtp_User.Location = new System.Drawing.Point(137, 104);
             this.tbxFtp_User.Margin = new System.Windows.Forms.Padding(25, 3, 3, 3);
             this.tbxFtp_User.Name = "tbxFtp_User";
             this.tbxFtp_User.Size = new System.Drawing.Size(258, 22);
@@ -247,7 +290,7 @@
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.Location = new System.Drawing.Point(3, 368);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(107, 49);
+            this.label17.Size = new System.Drawing.Size(106, 49);
             this.label17.TabIndex = 17;
             this.label17.Text = "PASSWORD:";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -258,7 +301,7 @@
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.Location = new System.Drawing.Point(3, 322);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(107, 46);
+            this.label15.Size = new System.Drawing.Size(106, 46);
             this.label15.TabIndex = 15;
             this.label15.Text = "USER:";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -269,7 +312,7 @@
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(3, 276);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(107, 46);
+            this.label13.Size = new System.Drawing.Size(106, 46);
             this.label13.TabIndex = 13;
             this.label13.Text = "ADDRESS:";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -280,7 +323,7 @@
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(3, 184);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(107, 46);
+            this.label9.Size = new System.Drawing.Size(106, 46);
             this.label9.TabIndex = 9;
             this.label9.Text = "FOLDER:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -291,7 +334,7 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(3, 138);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(107, 46);
+            this.label7.Size = new System.Drawing.Size(106, 46);
             this.label7.TabIndex = 7;
             this.label7.Text = "PASSWORD:";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -302,7 +345,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(3, 92);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(107, 46);
+            this.label5.Size = new System.Drawing.Size(106, 46);
             this.label5.TabIndex = 5;
             this.label5.Text = "USER:";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -313,7 +356,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(3, 46);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 46);
+            this.label2.Size = new System.Drawing.Size(106, 46);
             this.label2.TabIndex = 1;
             this.label2.Text = "ADDRESS:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -322,7 +365,7 @@
             // 
             this.tbxFtp_Address.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbxFtp_Address.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxFtp_Address.Location = new System.Drawing.Point(138, 58);
+            this.tbxFtp_Address.Location = new System.Drawing.Point(137, 58);
             this.tbxFtp_Address.Margin = new System.Windows.Forms.Padding(25, 3, 3, 3);
             this.tbxFtp_Address.Name = "tbxFtp_Address";
             this.tbxFtp_Address.Size = new System.Drawing.Size(258, 22);
@@ -333,7 +376,7 @@
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Maroon;
-            this.label3.Location = new System.Drawing.Point(116, 0);
+            this.label3.Location = new System.Drawing.Point(115, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(308, 46);
             this.label3.TabIndex = 3;
@@ -345,9 +388,9 @@
             this.panel4.Controls.Add(this.btnSearch);
             this.panel4.Controls.Add(this.tbxFtp_Folder);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(116, 187);
+            this.panel4.Location = new System.Drawing.Point(115, 187);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(311, 40);
+            this.panel4.Size = new System.Drawing.Size(309, 40);
             this.panel4.TabIndex = 28;
             // 
             // btnSearch
@@ -375,6 +418,156 @@
             this.tbxFtp_Folder.TabIndex = 4;
             this.tbxFtp_Folder.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.tabPage2.Controls.Add(this.btnAddParam);
+            this.tabPage2.Controls.Add(this.nnParamValue);
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.cbParamType);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.tbxParamName);
+            this.tabPage2.Controls.Add(this.lbTag);
+            this.tabPage2.Controls.Add(this.dvParam);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(436, 439);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Parameters";
+            // 
+            // btnAddParam
+            // 
+            this.btnAddParam.BackColor = System.Drawing.Color.Transparent;
+            this.btnAddParam.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddParam.BackgroundImage")));
+            this.btnAddParam.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAddParam.FlatAppearance.BorderSize = 0;
+            this.btnAddParam.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnAddParam.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnAddParam.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddParam.Location = new System.Drawing.Point(366, 41);
+            this.btnAddParam.Name = "btnAddParam";
+            this.btnAddParam.Size = new System.Drawing.Size(64, 49);
+            this.btnAddParam.TabIndex = 4;
+            this.btnAddParam.UseVisualStyleBackColor = false;
+            this.btnAddParam.Click += new System.EventHandler(this.btnAddParam_Click);
+            // 
+            // nnParamValue
+            // 
+            this.nnParamValue.Location = new System.Drawing.Point(46, 67);
+            this.nnParamValue.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.nnParamValue.Minimum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            -2147483648});
+            this.nnParamValue.Name = "nnParamValue";
+            this.nnParamValue.Size = new System.Drawing.Size(92, 20);
+            this.nnParamValue.TabIndex = 6;
+            this.nnParamValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(5, 67);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 15);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Value:";
+            // 
+            // cbParamType
+            // 
+            this.cbParamType.FormattingEnabled = true;
+            this.cbParamType.Items.AddRange(new object[] {
+            "INT",
+            "FLOAT"});
+            this.cbParamType.Location = new System.Drawing.Point(46, 40);
+            this.cbParamType.Name = "cbParamType";
+            this.cbParamType.Size = new System.Drawing.Size(76, 21);
+            this.cbParamType.TabIndex = 2;
+            this.cbParamType.SelectedIndexChanged += new System.EventHandler(this.cbParamType_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(7, 41);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 15);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Type:";
+            // 
+            // tbxParamName
+            // 
+            this.tbxParamName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxParamName.Location = new System.Drawing.Point(46, 14);
+            this.tbxParamName.Name = "tbxParamName";
+            this.tbxParamName.Size = new System.Drawing.Size(199, 21);
+            this.tbxParamName.TabIndex = 2;
+            // 
+            // lbTag
+            // 
+            this.lbTag.AutoSize = true;
+            this.lbTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTag.Location = new System.Drawing.Point(10, 14);
+            this.lbTag.Name = "lbTag";
+            this.lbTag.Size = new System.Drawing.Size(31, 15);
+            this.lbTag.TabIndex = 1;
+            this.lbTag.Text = "Tag:";
+            // 
+            // dvParam
+            // 
+            this.dvParam.AllowUserToAddRows = false;
+            this.dvParam.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dvParam.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dvParam.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dvParam.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TagCol,
+            this.TypeCol,
+            this.Value});
+            this.dvParam.Location = new System.Drawing.Point(3, 96);
+            this.dvParam.Name = "dvParam";
+            this.dvParam.ReadOnly = true;
+            this.dvParam.RowHeadersWidth = 20;
+            this.dvParam.Size = new System.Drawing.Size(430, 337);
+            this.dvParam.TabIndex = 0;
+            // 
+            // TagCol
+            // 
+            this.TagCol.FillWeight = 90.94018F;
+            this.TagCol.HeaderText = "Tag";
+            this.TagCol.MinimumWidth = 200;
+            this.TagCol.Name = "TagCol";
+            this.TagCol.ReadOnly = true;
+            // 
+            // TypeCol
+            // 
+            this.TypeCol.FillWeight = 87.23242F;
+            this.TypeCol.HeaderText = "Type";
+            this.TypeCol.MinimumWidth = 40;
+            this.TypeCol.Name = "TypeCol";
+            this.TypeCol.ReadOnly = true;
+            // 
+            // Value
+            // 
+            this.Value.FillWeight = 121.8274F;
+            this.Value.HeaderText = "Value";
+            this.Value.MinimumWidth = 80;
+            this.Value.Name = "Value";
+            this.Value.ReadOnly = true;
+            // 
             // btnAccept
             // 
             this.btnAccept.BackColor = System.Drawing.Color.Transparent;
@@ -384,7 +577,7 @@
             this.btnAccept.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.btnAccept.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnAccept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAccept.Location = new System.Drawing.Point(351, 439);
+            this.btnAccept.Location = new System.Drawing.Point(373, 473);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(74, 51);
             this.btnAccept.TabIndex = 8;
@@ -398,7 +591,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(441, 555);
+            this.panel2.Size = new System.Drawing.Size(458, 584);
             this.panel2.TabIndex = 1;
             // 
             // FrmSetting
@@ -406,7 +599,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(441, 555);
+            this.ClientSize = new System.Drawing.Size(458, 584);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmSetting";
@@ -417,10 +610,16 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nnParamValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dvParam)).EndInit();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -455,5 +654,19 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox tbxFtp_Folder;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbxParamName;
+        private System.Windows.Forms.Label lbTag;
+        private System.Windows.Forms.DataGridView dvParam;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TagCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
+        private System.Windows.Forms.NumericUpDown nnParamValue;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cbParamType;
+        private System.Windows.Forms.Button btnAddParam;
     }
 }

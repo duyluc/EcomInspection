@@ -165,6 +165,24 @@ namespace EcomInspection.Lib
             return s_value;
 
         }
+        public void SetFloat(string paramName, double value)
+        {
+            _sendCommand($"SF{paramName} {value}");
+            string respond = _readLineRespond();
+            if(respond != "1")
+            {
+                throw new ArgumentException("Can not Set Float Value");
+            }
+        }
+        public void SetInt(string paramName, int value)
+        {
+            _sendCommand($"SI{paramName} {value}");
+            string respond = _readLineRespond();
+            if (respond != "1")
+            {
+                throw new ArgumentException("Can not Set Int Value");
+            }
+        }
         private void _connectInsight(string iSAddress, string iSUser, string iSPassword)
         {
             if (string.IsNullOrEmpty(iSAddress)) return;
