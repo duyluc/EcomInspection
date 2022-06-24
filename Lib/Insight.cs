@@ -126,6 +126,19 @@ namespace EcomInspection.Lib
         {
             FTPServer = new FTP(ftpAddress,ftpUser,ftppassWord,ftpLocalFolder);
             NS = new NativeSerial(iSAddress, iSUser, iSPassword);
+            try
+            {
+                CurrentFormatString = NS.GetValue();
+                if (CurrentFormatString.Length < 1)
+                {
+                    throw new ArgumentNullException("Trigger Time was null");
+                }
+                _lastTriggerTime = CurrentFormatString[0];
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         #region Method

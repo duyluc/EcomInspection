@@ -29,9 +29,17 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 10D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 3D);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Display = new System.Windows.Forms.PictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lbTaktTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnTurnOnline = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.lbNG = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -39,6 +47,7 @@
             this.lbOK = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnClearCount = new System.Windows.Forms.Button();
             this.lbTotal = new System.Windows.Forms.Label();
             this.LBASDF = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,37 +56,30 @@
             this.led_OnlineStatus = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnClear = new System.Windows.Forms.Button();
-            this.btnOffline = new System.Windows.Forms.Button();
-            this.btnTrigger = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbxMessage = new System.Windows.Forms.TextBox();
-            this.btnOnline = new System.Windows.Forms.Button();
-            this.tbxAddress = new System.Windows.Forms.TextBox();
-            this.btnConnect = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnTryConnect = new System.Windows.Forms.Button();
+            this.btnSetting = new System.Windows.Forms.Button();
+            this.btnLoggin = new System.Windows.Forms.Button();
             this.btnQuit = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnTurnOnline = new System.Windows.Forms.Button();
+            this.PieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Display)).BeginInit();
             this.panel4.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PieChart)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -109,6 +111,9 @@
             // 
             // panel4
             // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel4.Controls.Add(this.PieChart);
+            this.panel4.Controls.Add(this.statusStrip1);
             this.panel4.Controls.Add(this.btnTurnOnline);
             this.panel4.Controls.Add(this.panel7);
             this.panel4.Controls.Add(this.panel6);
@@ -123,13 +128,45 @@
             this.panel4.Size = new System.Drawing.Size(227, 944);
             this.panel4.TabIndex = 2;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lbTaktTime});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 918);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(223, 22);
+            this.statusStrip1.TabIndex = 10;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lbTaktTime
+            // 
+            this.lbTaktTime.Name = "lbTaktTime";
+            this.lbTaktTime.Size = new System.Drawing.Size(107, 17);
+            this.lbTaktTime.Text = "Process Time: 0 ms";
+            // 
+            // btnTurnOnline
+            // 
+            this.btnTurnOnline.BackColor = System.Drawing.Color.Transparent;
+            this.btnTurnOnline.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnTurnOnline.BackgroundImage")));
+            this.btnTurnOnline.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnTurnOnline.FlatAppearance.BorderSize = 0;
+            this.btnTurnOnline.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnTurnOnline.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnTurnOnline.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTurnOnline.Location = new System.Drawing.Point(64, 825);
+            this.btnTurnOnline.Name = "btnTurnOnline";
+            this.btnTurnOnline.Size = new System.Drawing.Size(108, 92);
+            this.btnTurnOnline.TabIndex = 9;
+            this.btnTurnOnline.UseVisualStyleBackColor = false;
+            this.btnTurnOnline.Click += new System.EventHandler(this.btnTurnOnline_Click);
+            // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.Red;
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel7.Controls.Add(this.lbNG);
             this.panel7.Controls.Add(this.label9);
-            this.panel7.Location = new System.Drawing.Point(14, 506);
+            this.panel7.Location = new System.Drawing.Point(14, 671);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(200, 94);
             this.panel7.TabIndex = 8;
@@ -166,7 +203,7 @@
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel6.Controls.Add(this.lbOK);
             this.panel6.Controls.Add(this.label7);
-            this.panel6.Location = new System.Drawing.Point(14, 386);
+            this.panel6.Location = new System.Drawing.Point(14, 542);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(200, 94);
             this.panel6.TabIndex = 7;
@@ -201,12 +238,29 @@
             // 
             this.panel5.BackColor = System.Drawing.Color.CadetBlue;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel5.Controls.Add(this.btnClearCount);
             this.panel5.Controls.Add(this.lbTotal);
             this.panel5.Controls.Add(this.LBASDF);
-            this.panel5.Location = new System.Drawing.Point(14, 201);
+            this.panel5.Location = new System.Drawing.Point(14, 428);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(200, 94);
             this.panel5.TabIndex = 6;
+            // 
+            // btnClearCount
+            // 
+            this.btnClearCount.BackColor = System.Drawing.Color.Transparent;
+            this.btnClearCount.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClearCount.BackgroundImage")));
+            this.btnClearCount.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnClearCount.FlatAppearance.BorderSize = 0;
+            this.btnClearCount.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnClearCount.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnClearCount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearCount.Location = new System.Drawing.Point(167, -2);
+            this.btnClearCount.Name = "btnClearCount";
+            this.btnClearCount.Size = new System.Drawing.Size(31, 28);
+            this.btnClearCount.TabIndex = 6;
+            this.btnClearCount.UseVisualStyleBackColor = false;
+            this.btnClearCount.Click += new System.EventHandler(this.btnClearCount_Click);
             // 
             // lbTotal
             // 
@@ -285,7 +339,6 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -303,106 +356,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "AUTO";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.panel1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1902, 956);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "SETTING";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btnClear);
-            this.panel1.Controls.Add(this.btnOffline);
-            this.panel1.Controls.Add(this.btnTrigger);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.tbxMessage);
-            this.panel1.Controls.Add(this.btnOnline);
-            this.panel1.Controls.Add(this.tbxAddress);
-            this.panel1.Controls.Add(this.btnConnect);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1896, 950);
-            this.panel1.TabIndex = 1;
-            // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(445, 623);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(75, 23);
-            this.btnClear.TabIndex = 7;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            // 
-            // btnOffline
-            // 
-            this.btnOffline.Location = new System.Drawing.Point(174, 51);
-            this.btnOffline.Name = "btnOffline";
-            this.btnOffline.Size = new System.Drawing.Size(75, 23);
-            this.btnOffline.TabIndex = 6;
-            this.btnOffline.Text = "Offline";
-            this.btnOffline.UseVisualStyleBackColor = true;
-            // 
-            // btnTrigger
-            // 
-            this.btnTrigger.Location = new System.Drawing.Point(12, 51);
-            this.btnTrigger.Name = "btnTrigger";
-            this.btnTrigger.Size = new System.Drawing.Size(75, 23);
-            this.btnTrigger.TabIndex = 5;
-            this.btnTrigger.Text = "Trigger";
-            this.btnTrigger.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "IP:";
-            // 
-            // tbxMessage
-            // 
-            this.tbxMessage.Location = new System.Drawing.Point(2, 648);
-            this.tbxMessage.Multiline = true;
-            this.tbxMessage.Name = "tbxMessage";
-            this.tbxMessage.ReadOnly = true;
-            this.tbxMessage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxMessage.Size = new System.Drawing.Size(517, 293);
-            this.tbxMessage.TabIndex = 3;
-            // 
-            // btnOnline
-            // 
-            this.btnOnline.Location = new System.Drawing.Point(93, 51);
-            this.btnOnline.Name = "btnOnline";
-            this.btnOnline.Size = new System.Drawing.Size(75, 23);
-            this.btnOnline.TabIndex = 2;
-            this.btnOnline.Text = "Online";
-            this.btnOnline.UseVisualStyleBackColor = true;
-            // 
-            // tbxAddress
-            // 
-            this.tbxAddress.Location = new System.Drawing.Point(39, 8);
-            this.tbxAddress.Name = "tbxAddress";
-            this.tbxAddress.Size = new System.Drawing.Size(201, 20);
-            this.tbxAddress.TabIndex = 1;
-            this.tbxAddress.Text = "192.168.1.20:23";
-            this.tbxAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // btnConnect
-            // 
-            this.btnConnect.Location = new System.Drawing.Point(246, 6);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(75, 23);
-            this.btnConnect.TabIndex = 0;
-            this.btnConnect.Text = "Connect";
-            this.btnConnect.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
             // 
@@ -422,6 +375,9 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnTryConnect);
+            this.panel2.Controls.Add(this.btnSetting);
+            this.panel2.Controls.Add(this.btnLoggin);
             this.panel2.Controls.Add(this.btnQuit);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.pictureBox1);
@@ -430,6 +386,54 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1914, 82);
             this.panel2.TabIndex = 2;
+            // 
+            // btnTryConnect
+            // 
+            this.btnTryConnect.BackColor = System.Drawing.Color.Transparent;
+            this.btnTryConnect.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnTryConnect.BackgroundImage")));
+            this.btnTryConnect.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnTryConnect.FlatAppearance.BorderSize = 0;
+            this.btnTryConnect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnTryConnect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnTryConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTryConnect.Location = new System.Drawing.Point(350, 14);
+            this.btnTryConnect.Name = "btnTryConnect";
+            this.btnTryConnect.Size = new System.Drawing.Size(69, 54);
+            this.btnTryConnect.TabIndex = 5;
+            this.btnTryConnect.UseVisualStyleBackColor = false;
+            this.btnTryConnect.Click += new System.EventHandler(this.btnTryConnect_Click);
+            // 
+            // btnSetting
+            // 
+            this.btnSetting.BackColor = System.Drawing.Color.Transparent;
+            this.btnSetting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSetting.BackgroundImage")));
+            this.btnSetting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnSetting.FlatAppearance.BorderSize = 0;
+            this.btnSetting.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnSetting.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSetting.Location = new System.Drawing.Point(269, 9);
+            this.btnSetting.Name = "btnSetting";
+            this.btnSetting.Size = new System.Drawing.Size(75, 64);
+            this.btnSetting.TabIndex = 4;
+            this.btnSetting.UseVisualStyleBackColor = false;
+            this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
+            // 
+            // btnLoggin
+            // 
+            this.btnLoggin.BackColor = System.Drawing.Color.Transparent;
+            this.btnLoggin.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLoggin.BackgroundImage")));
+            this.btnLoggin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnLoggin.FlatAppearance.BorderSize = 0;
+            this.btnLoggin.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.btnLoggin.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnLoggin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoggin.Location = new System.Drawing.Point(184, 9);
+            this.btnLoggin.Name = "btnLoggin";
+            this.btnLoggin.Size = new System.Drawing.Size(75, 64);
+            this.btnLoggin.TabIndex = 3;
+            this.btnLoggin.UseVisualStyleBackColor = false;
+            this.btnLoggin.Click += new System.EventHandler(this.btnLoggin_Click);
             // 
             // btnQuit
             // 
@@ -452,12 +456,13 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label2.Location = new System.Drawing.Point(801, 9);
+            this.label2.Location = new System.Drawing.Point(720, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(434, 64);
+            this.label2.Size = new System.Drawing.Size(728, 64);
             this.label2.TabIndex = 1;
-            this.label2.Text = "MACHINE NAME";
+            this.label2.Text = "VISION INSPECTION SYSTEM";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // pictureBox1
             // 
@@ -480,21 +485,44 @@
             this.panel3.Size = new System.Drawing.Size(1914, 986);
             this.panel3.TabIndex = 3;
             // 
-            // btnTurnOnline
+            // PieChart
             // 
-            this.btnTurnOnline.BackColor = System.Drawing.Color.Transparent;
-            this.btnTurnOnline.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnTurnOnline.BackgroundImage")));
-            this.btnTurnOnline.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnTurnOnline.FlatAppearance.BorderSize = 0;
-            this.btnTurnOnline.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.btnTurnOnline.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnTurnOnline.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTurnOnline.Location = new System.Drawing.Point(64, 825);
-            this.btnTurnOnline.Name = "btnTurnOnline";
-            this.btnTurnOnline.Size = new System.Drawing.Size(108, 92);
-            this.btnTurnOnline.TabIndex = 9;
-            this.btnTurnOnline.UseVisualStyleBackColor = false;
-            this.btnTurnOnline.Click += new System.EventHandler(this.btnTurnOnline_Click);
+            this.PieChart.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.Name = "ChartArea1";
+            this.PieChart.ChartAreas.Add(chartArea3);
+            legend3.Alignment = System.Drawing.StringAlignment.Far;
+            legend3.AutoFitMinFontSize = 5;
+            legend3.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
+            legend3.Name = "Legend1";
+            legend3.Position.Auto = false;
+            legend3.Position.Height = 15F;
+            legend3.Position.Width = 20F;
+            legend3.Position.X = 80F;
+            legend3.Position.Y = 85F;
+            legend3.TextWrapThreshold = 2;
+            this.PieChart.Legends.Add(legend3);
+            this.PieChart.Location = new System.Drawing.Point(3, 135);
+            this.PieChart.Name = "PieChart";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series3.Legend = "Legend1";
+            series3.Name = "Series";
+            dataPoint5.AxisLabel = "";
+            dataPoint5.Color = System.Drawing.Color.Green;
+            dataPoint5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataPoint5.Label = "0%";
+            dataPoint5.LabelForeColor = System.Drawing.Color.White;
+            dataPoint6.AxisLabel = "";
+            dataPoint6.Color = System.Drawing.Color.DarkRed;
+            dataPoint6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataPoint6.Label = "";
+            dataPoint6.LabelBackColor = System.Drawing.Color.Transparent;
+            dataPoint6.LabelForeColor = System.Drawing.Color.White;
+            series3.Points.Add(dataPoint5);
+            series3.Points.Add(dataPoint6);
+            this.PieChart.Series.Add(series3);
+            this.PieChart.Size = new System.Drawing.Size(217, 205);
+            this.PieChart.TabIndex = 11;
             // 
             // FrmMain
             // 
@@ -511,6 +539,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.Display)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -519,14 +549,12 @@
             this.panel5.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PieChart)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -537,22 +565,12 @@
         private System.Windows.Forms.PictureBox Display;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnQuit;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnClear;
-        private System.Windows.Forms.Button btnOffline;
-        private System.Windows.Forms.Button btnTrigger;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tbxMessage;
-        private System.Windows.Forms.Button btnOnline;
-        private System.Windows.Forms.TextBox tbxAddress;
-        private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button led_OnlineStatus;
@@ -568,6 +586,13 @@
         private System.Windows.Forms.Label lbTotal;
         private System.Windows.Forms.Label LBASDF;
         private System.Windows.Forms.Button btnTurnOnline;
+        private System.Windows.Forms.Button btnSetting;
+        private System.Windows.Forms.Button btnLoggin;
+        private System.Windows.Forms.Button btnTryConnect;
+        private System.Windows.Forms.Button btnClearCount;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel lbTaktTime;
+        private System.Windows.Forms.DataVisualization.Charting.Chart PieChart;
     }
 }
 

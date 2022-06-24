@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -68,13 +69,21 @@ namespace EcomInspection.Lib
                     int count = 0;
                     Thread _t = new Thread(() =>
                     {
-                        _connectInsight(ISAddress, ISUser, ISPassword);
-                        iscomplete = true;
+                        try
+                        {
+                            _connectInsight(ISAddress, ISUser, ISPassword);
+                            iscomplete = true;
+                        }
+                        catch 
+                        {
+
+                        }
                     });
                     _t.Start();
                     while(count < 100 && !iscomplete)
                     {
                         Thread.Sleep(1);
+                        count++;
                     }
                     if (_t.IsAlive)
                     {
@@ -169,10 +178,15 @@ namespace EcomInspection.Lib
             }
             this.Client = new TcpClient();
             string ipstring = iSAddress.Split(':')[0];
-            //int port = int.Parse(iSAddress.Split(':')[1]);
             int port = 23;
 
             //Connect to Server
+            Ping ping = new Ping();
+            PingReply reply = ping.Send(ipstring, port);
+            if(reply.Status != IPStatus.Success)
+            {
+                throw new ArgumentException("Insight Address is wrong!");
+            }
             this.Client.Connect(ipstring, port);
             Stream = this.Client.GetStream();
             //string respond_string = _readLineRespond();

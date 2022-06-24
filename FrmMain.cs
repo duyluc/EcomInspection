@@ -23,8 +23,6 @@ namespace EcomInspection
     public partial class FrmMain : Form
     {
         #region Fields
-        private TcpClient Client;
-        private NetworkStream Stream;
         private Stopwatch Sw = new Stopwatch();
         private Insight IS130 { get; set; }
         private System.Windows.Forms.Timer ScanISTimer { get; set; }
@@ -68,13 +66,15 @@ namespace EcomInspection
             set
             {
                 _totalCount = value;
-                if (_totalCount == 0)
+                if (value == 0)
                 {
-                    _oKCount = 0;
-                    _nGcount = 0;
+                    OKCount = 0;
+                    NGCount = 0;
                 }
             }
         }
+        public static bool MustUpdate = false;
+        public static bool Loggedin = false;
         #endregion
         /// <summary>
         /// Constructor
@@ -87,7 +87,15 @@ namespace EcomInspection
         #region User Mothods
         public void ShowImage()
         {
-            this.Display.Invoke(new Action(() => { Display.BackgroundImage = IS130.FTPServer.GetImage(); }));
+            try
+            {
+                this.Display.Invoke(new Action(() => { Display.BackgroundImage = IS130.FTPServer.GetImage(); Display.BackColor = Color.Gainsboro; }));
+            }
+            catch (Exception ex)
+            {
+                this.Display.Invoke(new Action(() => { Display.BackgroundImage = null; Display.BackColor = Color.Red; }));
+            }
+                
         }
         public void Graphic_TurnOnlineLed(bool isonline)
         {
@@ -131,6 +139,22 @@ namespace EcomInspection
             {
                 lbNG.Text = NGCount.ToString();
             }));
+            PieChart.Invoke(new Action(() =>
+            {
+                if(TotalCount > 0)
+                {
+                    PieChart.Series[0].Points[0].YValues[0] = 1.0 * OKCount;
+                    PieChart.Series[0].Points[1].YValues[0] = 1.0 * NGCount;
+                    double percent = Math.Round(1.0* OKCount/ TotalCount,4);
+                    PieChart.Series[0].Points[0].Label = (percent * 100.0).ToString() + "%";
+                }
+                else
+                {
+                    PieChart.Series[0].Points[0].YValues[0] = 1.0;
+                    PieChart.Series[0].Points[1].YValues[0] = 0;
+                    PieChart.Series[0].Points[0].Label = "N/A";
+                }
+            }));
         }
         private void ShowMessage(string t)
         {
@@ -146,19 +170,32 @@ namespace EcomInspection
                     message = $"-> {DateTime.Now.ToString("mm-ss")}: " + subt + Environment.NewLine;
                 }
 
-                this.tbxMessage.Text += message;
+                //this.tbxMessage.Text += message;
             }
 
+        }
+        private void Login()
+        {
+            btnTurnOnline.Visible = true;
+            btnSetting.Visible = true;
+            btnClearCount.Enabled = true;
+        }
+        private void Logout()
+        {
+            btnTurnOnline.Visible = false;
+            btnSetting.Visible = false;
+            btnClearCount.Enabled = false;
         }
         #endregion
         #region User Event Handler
         private void IS130_Triggered(object sender, EventArgs e)
         {
-            if (IS130.NSStatus == Insight.Status.Busy) return;
             IS130.NSStatus = Insight.Status.Busy;
             try
             {
-                if (IS130.CurrentFormatString.Length != 4)
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                if (IS130.CurrentFormatString.Length < 2)
                 {
                     return;
                 }
@@ -171,9 +208,12 @@ namespace EcomInspection
                 NGCount = TotalCount - OKCount;
                 Thread.Sleep(150);
                 this.ShowImage();
+                sw.Stop();
+                lbTaktTime.Text = $"Process Time: {sw.ElapsedMilliseconds} ms";
             }
             catch (Exception ex)
             {
+
             }
             finally
             {
@@ -198,189 +238,224 @@ namespace EcomInspection
         }
         private void ScanISTimer_Tick(object sender, EventArgs e)
         {
-            IS130.CheckISStatus();
+            if(IS130 == null || IS130.NSStatus == Insight.Status.Busy)
+            {
+                return;
+            }
+            try
+            {
+                ScanISTimer.Stop();
+                IS130.CheckISStatus();
+                ScanISTimer.Start();
+            }
+            catch (Exception ex)
+            {
+                IS130_Offlined(null, EventArgs.Empty);
+                IS130_Disconnected(null, EventArgs.Empty);
+                MessageBox.Show(ex.Message);
+                btnTryConnect.Visible = true;
+                IS130 = null;
+            }
+            
         }
         #endregion
         #region Form Event
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            IS130 = new Insight("192.168.1.10", "FTP-User", "delay10ktcyx", @"C:\Users\duong\OneDrive\Máy tính\Insight_localremote", "192.168.1.20", "admin", "");
-            IS130.NS.ConnectInsight();
-            IS130.Triggered += IS130_Triggered;
-            IS130.Connected += IS130_Connected;
-            IS130.Disconnected += IS130_Disconnected;
-            IS130.Onlined += IS130_Onlined;
-            IS130.Offlined += IS130_Offlined;
-            ScanISTimer = new System.Windows.Forms.Timer();
-            ScanISTimer.Interval = 200;
-            ScanISTimer.Start();
-            ScanISTimer.Tick += ScanISTimer_Tick;
+            PieChart.Series[0].Points[0].LegendText = "OK";
+            PieChart.Series[0].Points[1].LegendText = "NG";
+            try
+            {
+                Database.Counter _counter = Database.LoadCounter();
+                if(_counter == null)
+                {
+                    TotalCount = 0;
+                }
+                else
+                {
+                    TotalCount = _counter.Total;
+                    OKCount = _counter.OK;
+                    NGCount = TotalCount - OKCount;
+                }
+            }
+            catch(Exception ex)
+            {
+                TotalCount = 0;
+                MessageBox.Show($"Can not load counter: {ex.Message}");
+            }
+            Logout();
+            btnTryConnect.Visible = false;
+            btnTurnOnline.Enabled = false;
+            Lib.Database.AppParams _params = Lib.Database.LoadParams();
+            if(_params != null)
+            {
+                try
+                {
+                    IS130 = new Insight(_params.Ftp_Address, _params.Ftp_User, _params.Ftp_Password, _params.Ftp_Folder, _params.Ns_Address, _params.Ns_User, _params.Ns_Password);
+                    IS130.NS.ConnectInsight();
+                    IS130.Triggered += IS130_Triggered;
+                    IS130.Connected += IS130_Connected;
+                    IS130.Disconnected += IS130_Disconnected;
+                    IS130.Onlined += IS130_Onlined;
+                    IS130.Offlined += IS130_Offlined;
+                    ScanISTimer = new System.Windows.Forms.Timer();
+                    ScanISTimer.Interval = 100;
+                    ScanISTimer.Start();
+                    ScanISTimer.Tick += ScanISTimer_Tick;
+                    btnTurnOnline.Enabled = true;
+                    btnTryConnect.Visible = false;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    btnTryConnect.Visible = true;
+                    IS130 = null;
+                }
+            }
         }
         private void btnTurnOnline_Click(object sender, EventArgs e)
         {
-            //if (IS130.ISOnlineStatus == Insight.Status.Online)
-            //{
-            //    Thread _ = new Thread(() =>
-            //    {
-            //        if (IS130.NSStatus == Insight.Status.Busy) Thread.Sleep(150);
-            //        while (IS130.NSStatus == Insight.Status.Busy)
-            //        {
-            //            Thread.Sleep(1);
-            //        }
-            //        IS130.NS.TurnISOffline();
-            //    });
-            //    _.Start();
-            //}
             if (IS130.ISOnlineStatus == Insight.Status.Online)
             {
+                if (MessageBox.Show("Are you sure want to go Offine?", "Warning", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    return;
                 IS130.NS.TurnISOffline();
             }
             else
             {
+                if (MessageBox.Show("Are you sure want to go Online?", "Warning", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    return;
                 IS130.NS.TurnISOnline();
             }
         }
-        private void btnConnect_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbxAddress.Text)) return;
-            if (this.Client != null)
-            {
-                if (this.Client.Connected) this.Client.Close();
-                else
-                {
-                    this.Client.Dispose();
-                }
-            }
-            this.Client = new TcpClient();
-            string ipstring = tbxAddress.Text.Split(':')[0];
-            int port = int.Parse(tbxAddress.Text.Split(':')[1]);
-
-            //Query to Connect Server
-            this.Client.Connect(ipstring, port);
-            if (!this.Client.Connected)
-            {
-                MessageBox.Show("Connect Fault!");
-                return;
-            }
-
-            //show message
-            ShowMessage($"Open {ipstring}:{port}");
-
-            this.Stream = this.Client.GetStream();
-            byte[] buffer = new byte[1024];
-            int readed = Stream.Read(buffer, 0, buffer.Length);
-
-            byte[] respond_data = new byte[readed];
-            Array.Copy(buffer, 0, respond_data, 0, readed);
-
-            string respond_string = Encoding.ASCII.GetString(respond_data);
-            if (!respond_string.Contains("Welcome"))
-            {
-                MessageBox.Show("Is not an Insight Server!");
-                return;
-            }
-            if (!respond_string.Contains("User"))
-            {
-                ShowMessage(respond_string);
-
-                buffer = new byte[1024];
-                readed = Stream.Read(buffer, 0, buffer.Length);
-
-                respond_data = new byte[readed];
-                Array.Copy(buffer, 0, respond_data, 0, readed);
-
-                respond_string = Encoding.ASCII.GetString(respond_data);
-                if (!respond_string.Contains("User"))
-                {
-                    MessageBox.Show("Something's Wrong!");
-                    MessageBox.Show(respond_string);
-                    return;
-                }
-            }
-            //Query to send Account name
-            Stream.Write(Encoding.ASCII.GetBytes($"admin\r\n"), 0, 7);
-
-            //show message
-            ShowMessage(respond_string + "admin");
-            //Query to send Account name
-            buffer = new byte[1024];
-            readed = Stream.Read(buffer, 0, buffer.Length);
-
-            respond_data = new byte[readed];
-            Array.Copy(buffer, 0, respond_data, 0, readed);
-
-            respond_string = Encoding.ASCII.GetString(respond_data);
-            if (!respond_string.Contains("Password"))
-            {
-                MessageBox.Show("Something's Wrong!");
-                MessageBox.Show(respond_string);
-                return;
-            }
-
-            //Show message
-            ShowMessage(respond_string);
-
-            byte[] endline = Encoding.ASCII.GetBytes("\r\n");
-            Stream.Write(endline, 0, endline.Length);
-            //------------------------
-            buffer = new byte[1024];
-            readed = Stream.Read(buffer, 0, buffer.Length);
-
-            respond_data = new byte[readed];
-            Array.Copy(buffer, 0, respond_data, 0, readed);
-
-            respond_string = Encoding.ASCII.GetString(respond_data);
-            ShowMessage(respond_string);
-
-        }
-        private void btnOnline_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ShowMessage("Cmd: " + "SO1");
-                //this.SendCommand("SO1");
-                //string respond = ReadRespond();
-                //ShowMessage("Respond Cmd: " + respond);
-            }
-            catch (Exception ex)
-            {
-                ShowMessage("Cmd False");
-                ShowMessage(ex.Message);
-            }
-        }
-        private void btnOffline_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ShowMessage("Cmd: " + "SO0");
-                //this.SendCommand("SO0");
-                //string respond = ReadRespond();
-                //ShowMessage("Respond Cmd: " + respond);
-            }
-            catch (Exception ex)
-            {
-                ShowMessage("Cmd False");
-                ShowMessage(ex.Message);
-            }
-        }
-        private void btnTrigger_Click(object sender, EventArgs e)
-        {
-            //Image image = GetImage();
-            //if (image == null) return;
-            //this.Display.BackgroundImage = image;
-        }
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            this.tbxMessage.Text = "";
-        }
         private void btnQuit_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Quit?") == DialogResult.OK)
+            if (MessageBox.Show("Quit?","Warning",MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
+                try
+                {
+                    Database.Counter _counter = new Database.Counter
+                    {
+                        Total = TotalCount,
+                        OK = OKCount
+                    };
+                    Database.SaveCounter(_counter);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"Can not save counter: {ex.Message}");
+                }
                 this.Close();
             }
         }
+        private void btnSetting_Click(object sender, EventArgs e)
+        {
+            if(IS130 != null)
+            {
+                if (IS130.NSStatus == Insight.Status.Online)
+                {
+                    MessageBox.Show("Turn Offline Before Setting!");
+                    return;
+                }
+            }
+            FrmSetting Settingpage = new FrmSetting();
+            Settingpage.ShowDialog();
+            if (MustUpdate)
+            {
+                btnTurnOnline.Enabled = false;
+                Lib.Database.AppParams _params = Lib.Database.LoadParams();
+                try
+                {
+                    IS130 = new Insight(_params.Ftp_Address, _params.Ftp_User, _params.Ftp_Password, _params.Ftp_Folder, _params.Ns_Address, _params.Ns_User, _params.Ns_Password);
+                    IS130.NS.ConnectInsight();
+                    IS130.Triggered += IS130_Triggered;
+                    IS130.Connected += IS130_Connected;
+                    IS130.Disconnected += IS130_Disconnected;
+                    IS130.Onlined += IS130_Onlined;
+                    IS130.Offlined += IS130_Offlined;
+                    ScanISTimer = new System.Windows.Forms.Timer();
+                    ScanISTimer.Interval = 200;
+                    ScanISTimer.Start();
+                    ScanISTimer.Tick += ScanISTimer_Tick;
+                    btnTurnOnline.Enabled = true;
+                    btnTryConnect.Visible = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    btnTryConnect.Visible = true;
+                    IS130 = null;
+                }
+                MustUpdate = false;
+            }
+        }
+        private void btnTryConnect_Click(object sender, EventArgs e)
+        {
+            btnTurnOnline.Enabled = false;
+            Lib.Database.AppParams _params = Lib.Database.LoadParams();
+            try
+            {
+                IS130 = new Insight(_params.Ftp_Address, _params.Ftp_User, _params.Ftp_Password, _params.Ftp_Folder, _params.Ns_Address, _params.Ns_User, _params.Ns_Password);
+                IS130.NS.ConnectInsight();
+                IS130.Triggered += IS130_Triggered;
+                IS130.Connected += IS130_Connected;
+                IS130.Disconnected += IS130_Disconnected;
+                IS130.Onlined += IS130_Onlined;
+                IS130.Offlined += IS130_Offlined;
+                ScanISTimer = new System.Windows.Forms.Timer();
+                ScanISTimer.Interval = 200;
+                ScanISTimer.Start();
+                ScanISTimer.Tick += ScanISTimer_Tick;
+                btnTurnOnline.Enabled = true;
+                btnTryConnect.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                btnTryConnect.Visible = true;
+                IS130 = null;
+            }
+        }
+        private void btnLoggin_Click(object sender, EventArgs e)
+        {
+            if(this.btnTurnOnline.Visible == true)
+            {
+                if (MessageBox.Show("Are you sure want to Logout?", "Warning", MessageBoxButtons.OKCancel) != DialogResult.OK)
+                    return;
+                Logout();
+            }
+            else
+            {
+                try
+                {
+                    FrmLogin _loginpage = new FrmLogin();
+                    _loginpage.ShowDialog();
+                    if (Loggedin)
+                    {
+                        Login();
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    Loggedin = false;
+                }
+            }
+            
+        }
 
+        private void btnClearCount_Click(object sender, EventArgs e)
+        {
+            TotalCount = 0;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
     }

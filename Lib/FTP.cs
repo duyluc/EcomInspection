@@ -58,9 +58,11 @@ namespace EcomInspection.Lib
         }
         public Bitmap ConvertSVG2Bitmapp(string svgpath)
         {
-            var svgDocument = Svg.SvgDocument.Open(svgpath);
+            SvgDocument svgDocument = Svg.SvgDocument.Open(svgpath);
             svgDocument.ShapeRendering = SvgShapeRendering.Auto;
             Bitmap bmp = svgDocument.Draw();
+            svgDocument = null;
+            GC.Collect();
             return bmp;
         }
         public bool CreateFolder(string host, string UserId, string Password)
