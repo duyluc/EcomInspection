@@ -81,6 +81,7 @@ namespace EcomInspection.Lib
             }
             catch (Exception ex)
             {
+                Log.WriteLog(ex);
                 IsCreated = false;
             }
             return IsCreated;

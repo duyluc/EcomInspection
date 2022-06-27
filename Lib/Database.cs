@@ -26,6 +26,48 @@ namespace EcomInspection.Lib
                 DatabaseFolder = value;
             }
         }
+        #region Save App Setting
+        public static string SettingPath = Path.Combine(DatabaseFolder, "Setting.db");
+        public class AppSetting
+        {
+            public int Id { get; set; }
+            public string SettingName { get; set; }
+            public bool IsEnabled { get; set; }
+        }
+        #endregion
+        #region Save Result Records
+        public class ResultRecords
+        {
+            public int Id { get; set; }
+            public string Trigger_Stamp { get; set; }
+            public bool Result { get; set; }
+        }
+        
+        static public void SaveRecord(ResultRecords record)
+        {
+            using(LiteDatabase db = new LiteDatabase(Path.Combine(DatabaseFolder, $"Record_{DateTime.Now.ToString("yyyy-MM-dd")}.db")))
+            {
+                var col = db.GetCollection<ResultRecords>();
+                col.Insert(record);
+            }
+        }
+
+        /// <summary>
+        /// Get All record of a day
+        /// </summary>
+        /// <param name="date"> Format folow yyyy-MM-dd</param>
+        /// <returns></returns>
+        static public List<ResultRecords> GetRecordByDate(string date)
+        {
+            List<ResultRecords> records = new List<ResultRecords>();
+            using(LiteDatabase db = new LiteDatabase(Path.Combine(DatabaseFolder, $"Record_{date}.db")))
+            {
+                var col = db.GetCollection<ResultRecords>();
+                records = col.FindAll().ToList();
+            }
+            return records;
+        }
+
         #region Tool Params
         public static string ParamsPath = Path.Combine(DatabaseFolder, "Params.db");
         public class ToolParams
@@ -47,6 +89,7 @@ namespace EcomInspection.Lib
                 }
             }
         }
+        #endregion
         public static List<ToolParams> LoadToolParams()
         {
             List<ToolParams> toolparams = new List<ToolParams>();
@@ -60,6 +103,7 @@ namespace EcomInspection.Lib
             }
             catch (Exception ex)
             {
+                Log.WriteLog(ex);
             }
             return toolparams;
         }
@@ -98,6 +142,7 @@ namespace EcomInspection.Lib
             }
             catch (Exception ex)
             {
+                Log.WriteLog(ex);
                 return null;
             }
         }
@@ -145,6 +190,7 @@ namespace EcomInspection.Lib
             }
             catch(Exception ex)
             {
+                Log.WriteLog(ex);
                 return null;
             }
         }

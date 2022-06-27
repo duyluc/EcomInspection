@@ -137,7 +137,7 @@ namespace EcomInspection.Lib
             }
             catch (Exception ex)
             {
-
+                Log.WriteLog(ex);
             }
         }
 
@@ -182,7 +182,7 @@ namespace EcomInspection.Lib
             }
             catch(Exception ex)
             {
-
+                Log.WriteLog(ex);
             }
         }
         #endregion

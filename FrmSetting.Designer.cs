@@ -445,7 +445,7 @@
             this.btnAddParam.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
             this.btnAddParam.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnAddParam.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddParam.Location = new System.Drawing.Point(366, 41);
+            this.btnAddParam.Location = new System.Drawing.Point(369, 44);
             this.btnAddParam.Name = "btnAddParam";
             this.btnAddParam.Size = new System.Drawing.Size(64, 49);
             this.btnAddParam.TabIndex = 4;

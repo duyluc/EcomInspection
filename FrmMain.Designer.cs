@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 10D);
+            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint2 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 3D);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint5 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(1D, 10D);
-            System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint6 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(2D, 3D);
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Display = new System.Windows.Forms.PictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.PieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lbTaktTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnTurnOnline = new System.Windows.Forms.Button();
@@ -65,10 +66,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.PieChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Display)).BeginInit();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PieChart)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -79,7 +80,6 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PieChart)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -127,6 +127,45 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(227, 944);
             this.panel4.TabIndex = 2;
+            // 
+            // PieChart
+            // 
+            this.PieChart.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.PieChart.ChartAreas.Add(chartArea1);
+            legend1.Alignment = System.Drawing.StringAlignment.Far;
+            legend1.AutoFitMinFontSize = 5;
+            legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
+            legend1.Name = "Legend1";
+            legend1.Position.Auto = false;
+            legend1.Position.Height = 15F;
+            legend1.Position.Width = 20F;
+            legend1.Position.X = 80F;
+            legend1.Position.Y = 85F;
+            legend1.TextWrapThreshold = 2;
+            this.PieChart.Legends.Add(legend1);
+            this.PieChart.Location = new System.Drawing.Point(3, 151);
+            this.PieChart.Name = "PieChart";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Series";
+            dataPoint1.AxisLabel = "";
+            dataPoint1.Color = System.Drawing.Color.Green;
+            dataPoint1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataPoint1.Label = "0%";
+            dataPoint1.LabelForeColor = System.Drawing.Color.White;
+            dataPoint2.AxisLabel = "";
+            dataPoint2.Color = System.Drawing.Color.DarkRed;
+            dataPoint2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataPoint2.Label = "";
+            dataPoint2.LabelBackColor = System.Drawing.Color.Transparent;
+            dataPoint2.LabelForeColor = System.Drawing.Color.White;
+            series1.Points.Add(dataPoint1);
+            series1.Points.Add(dataPoint2);
+            this.PieChart.Series.Add(series1);
+            this.PieChart.Size = new System.Drawing.Size(217, 205);
+            this.PieChart.TabIndex = 11;
             // 
             // statusStrip1
             // 
@@ -178,9 +217,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbNG.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNG.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lbNG.Location = new System.Drawing.Point(3, 42);
+            this.lbNG.Location = new System.Drawing.Point(3, 50);
             this.lbNG.Name = "lbNG";
-            this.lbNG.Size = new System.Drawing.Size(189, 42);
+            this.lbNG.Size = new System.Drawing.Size(189, 39);
             this.lbNG.TabIndex = 1;
             this.lbNG.Text = "0";
             this.lbNG.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -188,11 +227,11 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft YaHei UI", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.SystemColors.Control;
-            this.label9.Location = new System.Drawing.Point(65, 0);
+            this.label9.Location = new System.Drawing.Point(70, 18);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(69, 42);
+            this.label9.Size = new System.Drawing.Size(59, 36);
             this.label9.TabIndex = 0;
             this.label9.Text = "NG";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -215,9 +254,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbOK.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbOK.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lbOK.Location = new System.Drawing.Point(3, 42);
+            this.lbOK.Location = new System.Drawing.Point(3, 49);
             this.lbOK.Name = "lbOK";
-            this.lbOK.Size = new System.Drawing.Size(189, 42);
+            this.lbOK.Size = new System.Drawing.Size(189, 39);
             this.lbOK.TabIndex = 1;
             this.lbOK.Text = "0";
             this.lbOK.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -225,11 +264,11 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.Control;
-            this.label7.Location = new System.Drawing.Point(68, -2);
+            this.label7.Location = new System.Drawing.Point(72, 18);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(66, 42);
+            this.label7.Size = new System.Drawing.Size(56, 36);
             this.label7.TabIndex = 0;
             this.label7.Text = "OK";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -269,9 +308,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTotal.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotal.ForeColor = System.Drawing.Color.GhostWhite;
-            this.lbTotal.Location = new System.Drawing.Point(3, 42);
+            this.lbTotal.Location = new System.Drawing.Point(4, 51);
             this.lbTotal.Name = "lbTotal";
-            this.lbTotal.Size = new System.Drawing.Size(189, 42);
+            this.lbTotal.Size = new System.Drawing.Size(189, 39);
             this.lbTotal.TabIndex = 1;
             this.lbTotal.Text = "0";
             this.lbTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -279,11 +318,11 @@
             // LBASDF
             // 
             this.LBASDF.AutoSize = true;
-            this.LBASDF.Font = new System.Drawing.Font("Microsoft YaHei UI", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LBASDF.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LBASDF.ForeColor = System.Drawing.SystemColors.Control;
-            this.LBASDF.Location = new System.Drawing.Point(41, 0);
+            this.LBASDF.Location = new System.Drawing.Point(50, 22);
             this.LBASDF.Name = "LBASDF";
-            this.LBASDF.Size = new System.Drawing.Size(126, 42);
+            this.LBASDF.Size = new System.Drawing.Size(106, 36);
             this.LBASDF.TabIndex = 0;
             this.LBASDF.Text = "TOTAL";
             this.LBASDF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -293,7 +332,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.OliveDrab;
-            this.label4.Location = new System.Drawing.Point(60, 22);
+            this.label4.Location = new System.Drawing.Point(41, 5);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(123, 20);
             this.label4.TabIndex = 5;
@@ -306,9 +345,9 @@
             this.led_Connection.Enabled = false;
             this.led_Connection.FlatAppearance.BorderSize = 0;
             this.led_Connection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.led_Connection.Location = new System.Drawing.Point(14, 11);
+            this.led_Connection.Location = new System.Drawing.Point(8, 4);
             this.led_Connection.Name = "led_Connection";
-            this.led_Connection.Size = new System.Drawing.Size(44, 41);
+            this.led_Connection.Size = new System.Drawing.Size(27, 24);
             this.led_Connection.TabIndex = 4;
             this.led_Connection.UseVisualStyleBackColor = true;
             // 
@@ -317,7 +356,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.OliveDrab;
-            this.label3.Location = new System.Drawing.Point(60, 67);
+            this.label3.Location = new System.Drawing.Point(41, 36);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(148, 20);
             this.label3.TabIndex = 1;
@@ -330,9 +369,9 @@
             this.led_OnlineStatus.Enabled = false;
             this.led_OnlineStatus.FlatAppearance.BorderSize = 0;
             this.led_OnlineStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.led_OnlineStatus.Location = new System.Drawing.Point(14, 56);
+            this.led_OnlineStatus.Location = new System.Drawing.Point(8, 35);
             this.led_OnlineStatus.Name = "led_OnlineStatus";
-            this.led_OnlineStatus.Size = new System.Drawing.Size(44, 41);
+            this.led_OnlineStatus.Size = new System.Drawing.Size(27, 24);
             this.led_OnlineStatus.TabIndex = 0;
             this.led_OnlineStatus.UseVisualStyleBackColor = true;
             // 
@@ -484,45 +523,6 @@
             this.panel3.Size = new System.Drawing.Size(1914, 986);
             this.panel3.TabIndex = 3;
             // 
-            // PieChart
-            // 
-            this.PieChart.BackColor = System.Drawing.Color.Transparent;
-            chartArea3.Name = "ChartArea1";
-            this.PieChart.ChartAreas.Add(chartArea3);
-            legend3.Alignment = System.Drawing.StringAlignment.Far;
-            legend3.AutoFitMinFontSize = 5;
-            legend3.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
-            legend3.Name = "Legend1";
-            legend3.Position.Auto = false;
-            legend3.Position.Height = 15F;
-            legend3.Position.Width = 20F;
-            legend3.Position.X = 80F;
-            legend3.Position.Y = 85F;
-            legend3.TextWrapThreshold = 2;
-            this.PieChart.Legends.Add(legend3);
-            this.PieChart.Location = new System.Drawing.Point(3, 135);
-            this.PieChart.Name = "PieChart";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.Legend = "Legend1";
-            series3.Name = "Series";
-            dataPoint5.AxisLabel = "";
-            dataPoint5.Color = System.Drawing.Color.Green;
-            dataPoint5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataPoint5.Label = "0%";
-            dataPoint5.LabelForeColor = System.Drawing.Color.White;
-            dataPoint6.AxisLabel = "";
-            dataPoint6.Color = System.Drawing.Color.DarkRed;
-            dataPoint6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataPoint6.Label = "";
-            dataPoint6.LabelBackColor = System.Drawing.Color.Transparent;
-            dataPoint6.LabelForeColor = System.Drawing.Color.White;
-            series3.Points.Add(dataPoint5);
-            series3.Points.Add(dataPoint6);
-            this.PieChart.Series.Add(series3);
-            this.PieChart.Size = new System.Drawing.Size(217, 205);
-            this.PieChart.TabIndex = 11;
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -538,6 +538,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Display)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PieChart)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -553,7 +554,6 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PieChart)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -29,6 +29,7 @@ namespace EcomInspection
         private int _oKCount = 0;
         private int _nGcount = 0;
         private int _totalCount = 0;
+        private bool _enableSaveRecord = true;
         #endregion
         #region Properties
         public int OKCount
@@ -85,6 +86,10 @@ namespace EcomInspection
         }
 
         #region User Mothods
+        public void SaveRecord()
+        {
+
+        }
         public void LoadParams()
         {
             bool result = LoadAppParams();
@@ -118,7 +123,7 @@ namespace EcomInspection
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    Log.WriteLog(ex,true);
                     btnTryConnect.Visible = true;
                     IS130 = null;
                     return false;
@@ -146,7 +151,7 @@ namespace EcomInspection
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Log.WriteLog(ex, true);
                 btnTryConnect.Visible = true;
                 IS130 = null;
             }
@@ -235,8 +240,6 @@ namespace EcomInspection
                 {
                     message = $"-> {DateTime.Now.ToString("mm-ss")}: " + subt + Environment.NewLine;
                 }
-
-                //this.tbxMessage.Text += message;
             }
 
         }
@@ -279,7 +282,7 @@ namespace EcomInspection
             }
             catch (Exception ex)
             {
-
+                Log.WriteLog(ex);
             }
             finally
             {
@@ -318,7 +321,7 @@ namespace EcomInspection
             {
                 IS130_Offlined(null, EventArgs.Empty);
                 IS130_Disconnected(null, EventArgs.Empty);
-                MessageBox.Show(ex.Message);
+                Log.WriteLog(ex, true);
                 btnTryConnect.Visible = true;
                 IS130 = null;
             }
@@ -347,7 +350,7 @@ namespace EcomInspection
             catch(Exception ex)
             {
                 TotalCount = 0;
-                MessageBox.Show($"Can not load counter: {ex.Message}");
+                Log.WriteLog($"Can not load counter: {ex.Message}",true);
             }
             Logout();
             btnTryConnect.Visible = false;
@@ -384,7 +387,7 @@ namespace EcomInspection
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show($"Can not save counter: {ex.Message}");
+                    Log.WriteLog($"Can not save counter: {ex.Message}", true);
                 }
                 this.Close();
             }
@@ -434,7 +437,7 @@ namespace EcomInspection
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    Log.WriteLog(ex,true);
                 }
                 finally
                 {
@@ -448,6 +451,5 @@ namespace EcomInspection
             TotalCount = 0;
         }
         #endregion
-
     }
 }

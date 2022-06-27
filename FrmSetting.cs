@@ -152,7 +152,6 @@ namespace EcomInspection
                 dvParam.Rows[dvParam.RowCount - 1].Cells[1].Value = paramType;
                 dvParam.Rows[dvParam.RowCount - 1].Cells[2].Value = paramValue;
             }
-
             tbxParamName.Text = "";
         }
 

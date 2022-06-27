@@ -74,9 +74,9 @@ namespace EcomInspection.Lib
                             _connectInsight(ISAddress, ISUser, ISPassword);
                             iscomplete = true;
                         }
-                        catch 
+                        catch(Exception ex1)
                         {
-
+                            Log.WriteLog(ex1);
                         }
                     });
                     _t.Start();
@@ -101,7 +101,7 @@ namespace EcomInspection.Lib
                     errorCounter++;
                     if(errorCounter == 2)
                     {
-                        throw new Exception("Connect Faulted!");
+                        Log.WriteLog("Connect Faulted!",true);
                     }
                 }
             }

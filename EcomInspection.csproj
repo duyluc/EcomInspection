@@ -126,6 +126,7 @@
     <Compile Include="Lib\Database.cs" />
     <Compile Include="Lib\FTP.cs" />
     <Compile Include="Lib\Insight.cs" />
+    <Compile Include="Lib\Log.cs" />
     <Compile Include="Lib\NativeSerial.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
