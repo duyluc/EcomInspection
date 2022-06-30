@@ -23,6 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>\\localhost\Users\Public\PublishProgram\EcomInspect\</InstallUrl>
     <UpdateUrl>\\localhost\Users\Public\PublishProgram\EcomInspect\</UpdateUrl>
     <ProductName>Check Vision System</ProductName>
     <PublisherName>Duong Duy Luc</PublisherName>
@@ -67,6 +68,10 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icons8_critical_thinking.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fizzler, Version=1.2.1.0, Culture=neutral, PublicKeyToken=4ebff4844e382110, processorArchitecture=MSIL">
