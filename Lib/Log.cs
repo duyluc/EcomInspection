@@ -28,7 +28,7 @@ namespace EcomInspection.Lib
         public static void WriteLog(string message, bool show = false)
         {
             string logstring = $"<{DateTime.Now.ToString("ss-mm-hh")}> {message}";
-            string filepath = Path.Combine(FolderPath, $"Log_{DateTime.Now.ToString("dd-mm-yyyy")}.txt");
+            string filepath = Path.Combine(FolderPath, $"Log_{DateTime.Now.ToString("dd-MM-yyyy")}.txt");
             if (File.Exists(filepath))
             {
                 using (StreamWriter write = File.AppendText(filepath))
@@ -51,7 +51,7 @@ namespace EcomInspection.Lib
         public static void WriteLog(Exception ex, bool show = false)
         {
             string logstring = $"<{DateTime.Now.ToString("ss-mm-hh")}> {ex.Source} -- {ex.Message}";
-            string filepath = Path.Combine(FolderPath, $"Log_{DateTime.Now.ToString("dd-mm-yyyy.txt")}");
+            string filepath = Path.Combine(FolderPath, $"Log_{DateTime.Now.ToString("dd-MM-yyyy")}.txt");
             if (File.Exists(filepath))
             {
                 using (StreamWriter write = File.AppendText(filepath))

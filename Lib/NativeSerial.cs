@@ -76,7 +76,6 @@ namespace EcomInspection.Lib
                         }
                         catch(Exception ex1)
                         {
-                            Log.WriteLog(ex1);
                         }
                     });
                     _t.Start();
@@ -101,7 +100,7 @@ namespace EcomInspection.Lib
                     errorCounter++;
                     if(errorCounter == 2)
                     {
-                        Log.WriteLog("Connect Faulted!",true);
+                        throw new Exception("Connect Faulted!");
                     }
                 }
             }
